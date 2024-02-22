@@ -1,7 +1,12 @@
 const express = require('express')
 const cors = require('cors')
 const redis = require('redis');
-const cache = redis.createClient();
+const cache = redis.createClient({
+    socket: {
+        host: process.env.REDIS_HOST,
+        port: process.env.REDIS_PORT,
+    }
+});
 
 require('dotenv').config()
 
@@ -17,8 +22,9 @@ app.get('/',(req, res) => {
 })
 
 const startup = async () => {
-    cache.connect()
     app.listen(process.env.PORT, () => {
         console.log('App running on port: ' + process.env.PORT)
     })
 }
+
+startup();
