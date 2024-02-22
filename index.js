@@ -16,14 +16,9 @@ app.get('/',(req, res) => {
     res.send("Ok!")
 })
 
-cache.on('connect', () => {
-   console.log('REDIS READY');
-});
-    
-cache.on('error', (e) => {
-    console.log('REDIS ERROR', e);
-});
-
-app.listen(process.env.PORT, () => {
-    console.log('App running on port: ' + process.env.PORT)
-})
+const startup = async () => {
+    cache.connect()
+    app.listen(process.env.PORT, () => {
+        console.log('App running on port: ' + process.env.PORT)
+    })
+}
