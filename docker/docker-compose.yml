@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  redis-radius:
+    container_name: redis-radius
+    image: redis
+    command: redis-server --requirepass v&d%Sqi8Y^A48*&
+    ports:
+      - "6379:6379"
+
+  api-radius:
+    container_name: api-radius
+    image: <imagem-buildada>
+    command: redis-server --requirepass v&d%Sqi8Y^A48*&
+    ports:
+      - "6379:6379"
