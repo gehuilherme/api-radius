@@ -31,7 +31,6 @@ class FindController {
                 return res.status(404).json({ error: 'MAC não encontrado' });
             }
                 login = usernameResult.username;
-                console.log("[LOG Login] " + login)
 
             let passwordCache = await cache.get(mac + "_password")
 
@@ -47,11 +46,9 @@ class FindController {
                 }
 
                 senha = passwordResult.value;
-                console.log("[LOG Senha Banco] " + senha)
                 await cache.set(mac + "_password", senha, { EX: 36000 })
             } else {
                 senha = passwordCache;
-                console.log("[LOG Senha Cache] " + senha)
             }
 
             res.json({ login, senha });
