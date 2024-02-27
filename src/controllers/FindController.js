@@ -28,6 +28,7 @@ class FindController {
                 .first()
 
             if (!usernameResult) {
+                await cache.disconnect();
                 return res.status(404).json({ error: 'MAC não encontrado' });
             }
                 login = usernameResult.username;
@@ -42,6 +43,7 @@ class FindController {
                     .first()
 
                 if (!passwordResult) {
+                    await cache.disconnect();
                     return res.status(404).json({ error: 'Senha não encontrada' });
                 }
 
