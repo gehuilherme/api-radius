@@ -1,8 +1,14 @@
-const connection = require('../database/connection')
-const express = require('express')
-const router = express.Router()
-const FindController = require('../controllers/FindController')
+const express = require('express');
+const rateLimit = require('express-rate-limit');
+const FindController = require('../controllers/FindController');
 
-router.post('/', FindController.findUserData)
+const router = express.Router();
 
-module.exports = router
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+});
+
+router.post('/', limiter, FindController.findUserData);
+
+module.exports = router;
